@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Movies with Ratings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+</head>
+<body>
+
+
+            <div th:switch="${sampleTests}" class="container-xl">
+                <p class="my-5">
+                    <a href="/edit" class="btn btn-primary">
+                        <i class="fas fa-user-plus ml-2"> Add Test </i></a>
+                    <a th:href="@{/fetch}"
+                       class="btn btn-primary">
+                        <i class="fas fa-user-times ml-2">Fetch Data</i>
+                    </a>
+                </p>
+                <div class="col-md-10">
+                    <h2 th:case="null">No record found !!</h2>
+                    <div th:case="*">
+                            <table class="table table-striped table-responsive-md">
+                                <thead>
+                                    <tr>
+                                        <th>avgMiningPower</th>
+                                        <th>numOfB</th>
+                                        <th>numOfT</th>
+                                        <th>numOfBPerSec</th>
+                                        <th>numOfTPerSec</th>
+                                        <th>numOfTPerBlock</th>
+                                        <th>numberOfU</th>
+                                        <th>duration</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr >
+                                    <form th:action="@{/}" method="get">
+                                        <input type="number" id="avgMiningPower" name="avgMiningPower">
+                                        <input type="number" id="numOfBlocks" name="numOfBlocks">
+                                        <input type="number" id="numOfTransactions" name="numOfTransactions">
+                                        <input type="number" id="numOfBlocksPerSec" name="numOfBlocksPerSec">
+                                        <input type="number" id="numOfTransactionsPerBlock" name="numOfTransactionsPerBlock">
+                                        <input type="number" id="numberOfUsers" name="numberOfUsers">
+                                        <input type="number" id="duration" name="duration">
+                                        <button type="submit">Search</button>
+                                    </form>
+                                </tr>
+                                    <tr th:each="sampleTest : ${sampleTests}">
+                                        <td th:text="${sampleTest.avgMiningPower}"></td>
+                                        <td th:text="${sampleTest.numOfBlocks}"></td>
+                                        <td th:text="${sampleTest.numOfTransactions}"></td>
+                                        <td th:text="${sampleTest.numOfBlocksPerSec}"></td>
+                                        <td th:text="${sampleTest.numOfTransactionsPerSec}"></td>
+                                        <td th:text="${sampleTest.numOfTransactionsPerBlock}"></td>
+                                        <td th:text="${sampleTest.numberOfUsers}"></td>
+                                        <td th:text="${sampleTest.duration}"></td>
+                                        <td>
+                                            <a th:href="@{/delete/{id}(id=${sampleTest.id})}"
+                                               class="btn btn-primary">
+                                                <i class="fas fa-user-times ml-2"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                    </div>
+
+                </div>
+
+    </div>
+
+</body>
+</html>
